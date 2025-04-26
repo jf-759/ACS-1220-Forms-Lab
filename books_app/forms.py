@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField
-from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
-from wtforms.validators import DataRequired, Length, ValidationError
+from wtforms import StringField, DateField, SelectField, SubmitField, TextAreaField, URLField
+from wtforms_sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
+from wtforms.validators import DataRequired, Length, ValidationError, URL, Optional
 from books_app.models import Audience, Book, Author, Genre
 
 class BookForm(FlaskForm):
@@ -25,21 +25,24 @@ class BookForm(FlaskForm):
 class AuthorForm(FlaskForm):
     """Form to create an author."""
 
-    # TODO: Fill out the fields in this class for:
-    # - the author's name
-    # - the author's biography (hint: use a TextAreaField)
-    # - a submit button
+    name= StringField('Name', validators=[DataRequired(), Length(min=3, max=80)])
+    biography = TextAreaField('Biography', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
     # STRETCH CHALLENGE: Add more fields here as well as in `models.py` to
     # collect more information about the author, such as their birth date,
     # country, etc.
-    pass
 
+    birth_date = DateField('Birth Date', validators=[Optional()])
+    death_date = DateField('Death Date', validators=[Optional()])
+    country = StringField('Country of Origin', validators=[Optional(), Length(max=80)])
+    website = URLField('Personal Website', validators=[Optional(), URL()])
+    awards = TextAreaField('Notable Awards', validators=[Optional()])
+
+    submit = SubmitField('Submit')
 
 class GenreForm(FlaskForm):
     """Form to create a genre."""
 
-    # TODO: Fill out the fields in this class for:
-    # - the genre's name (e.g. fiction, non-fiction, etc)
-    # - a submit button
-    pass
+    name = StringField('Genre Name', validators=[DataRequired(), Length(min=3, max=50)])
+    submit = SubmitField('submit')
