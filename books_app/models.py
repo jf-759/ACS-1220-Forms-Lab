@@ -60,8 +60,6 @@ class Author(db.Model):
     website = db.Column(db.String(200), nullable=True)
     awards = db.Column(db.Text, nullable=True)
 
-    books = db.relationship('Book', back_populates='author')
-
     def __str__(self):
         return f'<Author: {self.name}>'
 

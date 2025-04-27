@@ -39,10 +39,8 @@ class AuthorForm(FlaskForm):
     website = URLField('Personal Website', validators=[Optional(), URL()])
     awards = TextAreaField('Notable Awards', validators=[Optional()])
 
-    submit = SubmitField('Submit')
-
 class GenreForm(FlaskForm):
     """Form to create a genre."""
 
     name = StringField('Genre Name', validators=[DataRequired(), Length(min=3, max=50)])
-    submit = SubmitField('submit')
+    submit = SubmitField('Submit')
